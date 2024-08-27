@@ -1,0 +1,13 @@
+.footer {
+  background-color: #1E3A8A; /* Blu scuro */
+  color: white;
+}
+
+.footer a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #E0E0E0; /* Grigio chiaro */
+}

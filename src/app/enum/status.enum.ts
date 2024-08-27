@@ -1,0 +1,7 @@
+export enum StatusEnum{
+  MEASURING = 'MEASURING',
+  NEW_ROUND = 'NEW_ROUND',
+  ERROR = 'ERROR',
+  SUCCESS = 'SUCCESS',
+  GAME_OVER = 'GAME_OVER',
+}

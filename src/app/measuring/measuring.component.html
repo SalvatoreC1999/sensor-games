@@ -1,0 +1,18 @@
+<div class="card pl-4 pr-4 bg-blue-200">
+<div class="flex justify-content-center">
+    <h4>Misurazione</h4>
+  </div>
+
+  <div class="flex justify-content-center mt-2">
+    <span>La misurazione è partita, quando vuoi che termini clicca di nuovo sul bottone</span>
+  </div>
+
+  <div class="flex flex-column align-items-center mt-4">
+    <span class="font-semibold">Distanza: {{sensorData.distance}} cm</span>
+    <div class="indicator" [ngStyle]="{'background-color': getIndicatorColor()}"></div>
+  </div>
+
+  <div class="flex justify-content-center mt-4 mb-4">
+    <p-button label="Ferma" (onClick)="stop()"></p-button>
+  </div>
+</div>

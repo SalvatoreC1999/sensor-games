@@ -1,0 +1,24 @@
+:root {
+  --blue-100: #e0f7fa;
+  --blue-200: #E9F5FF;
+  --blue-500: #007BFF;
+  --blue-900: #0277bd;
+  --green-100: #D4EDDA;
+  --green-500: #28A745;
+  --red-100: #F8D7DA;
+  --red-500: #DC3545;
+  --gray-100: #F8F9FA;
+  --gray-500: #6C757D;
+  --gray-900: #343A40;
+  --black: #000000;
+}
+
+.navbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
