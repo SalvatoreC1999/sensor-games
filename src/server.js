@@ -45,7 +45,6 @@ app.get('/sensor-data', (req, res) => {
 });
 
 app.post('/start-measurement', (req, res) => {
-  console.log('qui')
   serialPort.write('START\n', (err) => {
     if (err) {
       console.error('Errore nell\'invio del comando START:', err);
@@ -53,6 +52,18 @@ app.post('/start-measurement', (req, res) => {
     } else {
       console.log('Comando START inviato');
       res.json({ message: 'Comando START inviato con successo' });
+    }
+  });
+});
+
+app.post('/init-distance-match', (req, res) => {
+  serialPort.write('INIT_DM\n', (err) => {
+    if (err) {
+      console.error('Errore nell\'invio del comando INIT_DM:', err);
+      res.status(500).json({ error: 'Errore nell\'invio del comando INIT_DM' });
+    } else {
+      console.log('Comando INIT_DM inviato');
+      res.json({ message: 'Comando INIT_DM inviato con successo' });
     }
   });
 });

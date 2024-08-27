@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SensorDataComponent } from './sensor-data.component';
+import { GamesOverviewComponent } from './games-overview.component';
 
-describe('SensorDataComponent', () => {
-  let component: SensorDataComponent;
-  let fixture: ComponentFixture<SensorDataComponent>;
+describe('GamesOverviewComponent', () => {
+  let component: GamesOverviewComponent;
+  let fixture: ComponentFixture<GamesOverviewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SensorDataComponent]
+      imports: [GamesOverviewComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SensorDataComponent);
+    fixture = TestBed.createComponent(GamesOverviewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

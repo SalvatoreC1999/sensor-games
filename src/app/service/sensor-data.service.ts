@@ -7,7 +7,7 @@ import { switchMap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class SensorDataService {
-
+  private apiInitDistanceMatchUrl = 'http://localhost:3000/init-distance-match';
   private apiGetUrl = 'http://localhost:3000/sensor-data';
   private apiPostUrl = 'http://localhost:3000/start-measurement';
   private apiStopUrl = 'http://localhost:3000/stop-measurement';
@@ -31,5 +31,9 @@ export class SensorDataService {
 
   startAgain(): Observable<any> {
     return this.http.post(this.apiStartAgainUrl,{});
+  }
+
+  initDistanceMatch(): Observable<any> {
+    return this.http.post(this.apiInitDistanceMatchUrl,{});
   }
 }

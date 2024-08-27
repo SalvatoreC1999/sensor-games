@@ -1,0 +1,30 @@
+<p-carousel
+  [value]="games"
+  [numVisible]="1"
+  [numScroll]="1"
+  [circular]="false"
+>
+  <ng-template let-game pTemplate="item">
+    <div class="border-1 surface-border border-round m-2 p-3 flex gap-6 game-item" (click)="loadGame(game)">
+      <div class="flex justify-content-start">
+        <div class="mb-3">
+          <img
+            src="assets/{{ game.image }}"
+            [alt]="game.name"
+            height="250px"
+            width="200px"
+          />
+        </div>
+      </div>
+
+      <div class="flex-column">
+        <div class="mb-3 font-semibold text-xl">
+          {{ game.name }}
+        </div>
+          <div class="mt-0 font-medium">
+            {{ game.description}}
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-carousel>
