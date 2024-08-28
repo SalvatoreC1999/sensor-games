@@ -8,6 +8,8 @@ import { switchMap } from 'rxjs/operators';
 })
 export class SensorDataService {
   private apiInitDistanceMatchUrl = 'http://localhost:3000/init-distance-match';
+  private apiInitDodgeTheObstacleUrl = 'http://localhost:3000/init-dodge-the-obstacle';
+
   private apiGetUrl = 'http://localhost:3000/sensor-data';
   private apiPostUrl = 'http://localhost:3000/start-measurement';
   private apiStopUrl = 'http://localhost:3000/stop-measurement';
@@ -35,5 +37,9 @@ export class SensorDataService {
 
   initDistanceMatch(): Observable<any> {
     return this.http.post(this.apiInitDistanceMatchUrl,{});
+  }
+
+  initDodgeTheObstacle(): Observable<any> {
+    return this.http.post(this.apiInitDodgeTheObstacleUrl,{});
   }
 }

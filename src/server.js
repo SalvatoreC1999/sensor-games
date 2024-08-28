@@ -58,13 +58,25 @@ app.post('/start-measurement', (req, res) => {
 });
 
 app.post('/init-distance-match', (req, res) => {
-  serialPort.write('SELECT_GAME:0', (err) => {
+  serialPort.write('DM', (err) => {
     if (err) {
-      console.error('Errore nell\'invio del comando INIT_DM:', err);
-      res.status(500).json({ error: 'Errore nell\'invio del comando INIT_DM' });
+      console.error('Errore nell\'invio del comando DM:', err);
+      res.status(500).json({ error: 'Errore nell\'invio del comando DM' });
     } else {
-      console.log('Comando INIT_DM inviato');
-      res.json({ message: 'Comando INIT_DM inviato con successo' });
+      console.log('Comando DM inviato');
+      res.json({ message: 'Comando DM inviato con successo' });
+    }
+  });
+});
+
+app.post('/init-dodge-the-obstacle', (req, res) => {
+  serialPort.write('DO', (err) => {
+    if (err) {
+      console.error('Errore nell\'invio del comando DO:', err);
+      res.status(500).json({ error: 'Errore nell\'invio del comando DO' });
+    } else {
+      console.log('Comando DO inviato');
+      res.json({ message: 'Comando DO inviato con successo' });
     }
   });
 });
