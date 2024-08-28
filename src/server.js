@@ -27,6 +27,7 @@ let sensorData = {
 
 // Leggi i dati dalla porta seriale
 parser.on('data', (data) => {
+  console.log('Raw data received:', data);
   try {
     const parsedData = JSON.parse(data);
     sensorData = {
@@ -35,7 +36,7 @@ parser.on('data', (data) => {
     };
     console.log('Received data:', sensorData);
   } catch (e) {
-    console.error('Errore nel parsing dei dati:', e);
+    console.error('Errore nel parsing dei dati:', e, sensorData);
   }
 });
 
@@ -45,7 +46,7 @@ app.get('/sensor-data', (req, res) => {
 });
 
 app.post('/start-measurement', (req, res) => {
-  serialPort.write('START\n', (err) => {
+  serialPort.write('START', (err) => {
     if (err) {
       console.error('Errore nell\'invio del comando START:', err);
       res.status(500).json({ error: 'Errore nell\'invio del comando START' });
@@ -57,7 +58,7 @@ app.post('/start-measurement', (req, res) => {
 });
 
 app.post('/init-distance-match', (req, res) => {
-  serialPort.write('INIT_DM\n', (err) => {
+  serialPort.write('SELECT_GAME:0', (err) => {
     if (err) {
       console.error('Errore nell\'invio del comando INIT_DM:', err);
       res.status(500).json({ error: 'Errore nell\'invio del comando INIT_DM' });
@@ -69,7 +70,7 @@ app.post('/init-distance-match', (req, res) => {
 });
 
 app.post('/stop-measurement', (req, res) => {
-  serialPort.write('STOP\n', (err) => {
+  serialPort.write('STOP', (err) => {
     if (err) {
       console.error('Errore nell\'invio del comando STOP:', err);
       res.status(500).json({ error: 'Errore nell\'invio del comando STOP' });
@@ -81,7 +82,7 @@ app.post('/stop-measurement', (req, res) => {
 });
 
 app.post('/start-again', (req, res) => {
-  serialPort.write('RESTART\n', (err) => {
+  serialPort.write('RESTART', (err) => {
     if (err) {
       console.error('Errore nell\'invio del comando START AGAIN:', err);
       res.status(500).json({ error: 'Errore nell\'invio del comando START AGAIN' });
