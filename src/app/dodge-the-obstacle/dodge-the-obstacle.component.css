@@ -1,0 +1,37 @@
+.game-container {
+  text-align: center;
+  padding: 20px;
+  background-color: #4CAF50; /* Green background for "Green Light" */
+  transition: background-color 0.5s;
+}
+
+.red-light {
+  background-color: #F44336; /* Red background for "Red Light" */
+}
+
+svg {
+  margin: 20px auto;
+  display: block;
+}
+
+.left-arm, .right-arm, .left-leg, .right-leg {
+  transition: transform 0.25s ease-in-out;
+}
+
+.running .left-arm, .running .left-leg {
+  animation: swing-left 0.5s infinite alternate;
+}
+
+.running .right-arm, .running .right-leg {
+  animation: swing-right 0.5s infinite alternate;
+}
+
+@keyframes swing-left {
+  from { transform: rotate(30deg); }
+  to { transform: rotate(-30deg); }
+}
+
+@keyframes swing-right {
+  from { transform: rotate(-30deg); }
+  to { transform: rotate(30deg); }
+}

@@ -1,4 +1,4 @@
-import {Component, NgZone, OnInit} from '@angular/core';
+import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SensorDataService} from '../service/sensor-data.service';
 import {Data} from "../model/data.model";
@@ -19,16 +19,17 @@ import {AudioService} from "../service/audio.service";
   templateUrl: './distance-match.component.html',
   styleUrls: ['./distance-match.component.css'],
 })
-export class DistanceMatchComponent implements OnInit {
+export class DistanceMatchComponent implements OnInit,OnDestroy {
   sensorData: Data = {} as Data;
   messages: any;
+  sensorSubscription: any;
 
   constructor(private sensorDataService: SensorDataService,private ngZone: NgZone,private dialogService: DialogService,private audioService: AudioService) {}
 
   ngOnInit() {
     this.sensorDataService.initDistanceMatch().subscribe({
       next: () => {
-        this.sensorDataService.getSensorData().subscribe(data => {
+        this.sensorSubscription = this.sensorDataService.getSensorData().subscribe(data => {
           this.ngZone.run(() => {
             console.log(data)
             const statusChanged = this.sensorData.status != data.status;
@@ -50,6 +51,10 @@ export class DistanceMatchComponent implements OnInit {
         });
       }
     })
+  }
+
+  ngOnDestroy() {
+    this.sensorSubscription.unsubscribe();
   }
 
   protected readonly StatusEnum = StatusEnum;
