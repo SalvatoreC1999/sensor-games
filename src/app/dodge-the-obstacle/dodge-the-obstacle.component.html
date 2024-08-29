@@ -16,10 +16,16 @@
   </div>
 
   <div class="game-container mt-4 border-1" [ngClass]="{'red-light': sensorData.status == StatusEnum.RED_LIGHT}">
-      <div class="lottie-container">
-      <ng-lottie [options]="options" (animationCreated)="animationCreated($event)" />
+    <div class="lottie-container">
+      <div class="lottie-item">
+        <ng-lottie [options]="options" (animationCreated)="animationCreated($event)" />
       </div>
+      <div class="lottie-item lottie-squid" *ngIf="sensorData.status == StatusEnum.RED_LIGHT">
+        <ng-lottie [options]="optionsSquid" />
+      </div>
+    </div>
   </div>
+
 
   <div *ngIf="sensorData.status == StatusEnum.GAME_OVER">
     <app-game-over [sensorData]="sensorData"></app-game-over>

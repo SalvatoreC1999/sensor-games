@@ -30,6 +30,9 @@ export class DodgeTheObstacleComponent implements OnInit,OnDestroy{
   options: AnimationOptions = {
     path: 'assets/doraemon-running.json'
   }
+  optionsSquid: AnimationOptions = {
+    path: 'assets/squid-game.json'
+  }
 
   constructor(
     private sensorDataService: SensorDataService,

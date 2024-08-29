@@ -9,6 +9,21 @@
 }
 
 .lottie-container {
-  width: 300px;
-  height: 300px;
+  width: 100%;
+  height: 500px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center
 }
+
+.lottie-item {
+  width: 600px;
+  height: 600px;
+}
+
+.lottie-squid {
+  width: 400px;
+  height: 400px;
+  justify-content:flex-end;
+}
+
