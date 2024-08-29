@@ -8,12 +8,7 @@
   background-color: #F44336; /* Red background for "Red Light" */
 }
 
-svg {
-  display: block;
-}
-
 .lottie-container {
-  width: 200px;
-  height: 200px;
-  overflow: hidden;
+  width: 300px;
+  height: 300px;
 }

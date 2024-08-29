@@ -7,6 +7,7 @@ import {GameOverComponent} from "../game-over/game-over.component";
 import {StatusEnum} from "../enum/status.enum";
 import { LottieComponent, AnimationOptions } from 'ngx-lottie';
 import { AnimationItem } from 'lottie-web';
+import {DodgeTheObstacleDataModel} from "../model/dodge-the-obstacle-data.model";
 
 @Component({
   selector: 'app-dodge-the-obstacle',
@@ -24,9 +25,7 @@ import { AnimationItem } from 'lottie-web';
 })
 export class DodgeTheObstacleComponent implements OnInit,OnDestroy{
   sensorSubscription: any;
-  sensorData: any;
-  isRunning: boolean = false;
-  previousScore: number = 0;
+  sensorData: DodgeTheObstacleDataModel | undefined;
   private animationItem: any;
   options: AnimationOptions = {
     path: 'assets/doraemon-running.json'
@@ -46,7 +45,7 @@ export class DodgeTheObstacleComponent implements OnInit,OnDestroy{
             console.log(data);
             const statusChanged = this.sensorData && this.sensorData.status != data.status;
             this.sensorData = data;
-            if (statusChanged) {
+            if (statusChanged && this.sensorData) {
               switch(this.sensorData.status) {
                 case StatusEnum.HIT:
                   this.audioService.playError();
@@ -56,7 +55,13 @@ export class DodgeTheObstacleComponent implements OnInit,OnDestroy{
                   break;
               }
             }
-            this.updateRunningState();
+            if (this.animationItem) {
+              if(this.sensorData && !this.sensorData.sensor_active){
+                this.animationItem.pause();
+              } else if (this.sensorData && this.sensorData.sensor_active) {
+                this.animationItem.play();
+              }
+            }
           });
         });
       }
@@ -67,11 +72,6 @@ export class DodgeTheObstacleComponent implements OnInit,OnDestroy{
     if (this.sensorSubscription) {
       this.sensorSubscription.unsubscribe();
     }
-  }
-
-  updateRunningState() {
-    this.isRunning = this.sensorData.score != undefined && this.sensorData.score > this.previousScore;
-    this.previousScore = this.sensorData.score ?? 0;
   }
 
   animationCreated(animationItem: AnimationItem): void {

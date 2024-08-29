@@ -1,5 +1,5 @@
 import {Component, Input, signal} from '@angular/core';
-import {Data} from "../model/data.model";
+import {DistanceMatchData} from "../model/distance-match-data.model";
 import {ProgressBarModule} from "primeng/progressbar";
 import {NgStyle} from "@angular/common";
 import {Button} from "primeng/button";
@@ -17,7 +17,7 @@ import {SensorDataService} from "../service/sensor-data.service";
   styleUrl: './measuring.component.css'
 })
 export class MeasuringComponent {
-  @Input() sensorData!: Data;
+  @Input() sensorData!: DistanceMatchData;
 
   constructor(private sensorDataService: SensorDataService) {
   }

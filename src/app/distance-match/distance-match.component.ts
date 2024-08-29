@@ -1,7 +1,7 @@
 import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SensorDataService} from '../service/sensor-data.service';
-import {Data} from "../model/data.model";
+import {DistanceMatchData} from "../model/distance-match-data.model";
 import {StatusEnum} from "../enum/status.enum";
 import {NewRoundComponent} from "../new-round/new-round.component";
 import {MeasuringComponent} from "../measuring/measuring.component";
@@ -20,7 +20,7 @@ import {AudioService} from "../service/audio.service";
   styleUrls: ['./distance-match.component.css'],
 })
 export class DistanceMatchComponent implements OnInit,OnDestroy {
-  sensorData: Data = {} as Data;
+  sensorData: DistanceMatchData = {} as DistanceMatchData;
   messages: any;
   sensorSubscription: any;
 
