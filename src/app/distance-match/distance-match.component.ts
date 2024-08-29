@@ -29,7 +29,7 @@ export class DistanceMatchComponent implements OnInit,OnDestroy {
   ngOnInit() {
     this.sensorDataService.initDistanceMatch().subscribe({
       next: () => {
-        this.sensorSubscription = this.sensorDataService.getSensorData().subscribe(data => {
+        this.sensorSubscription = this.sensorDataService.getSensorData(500).subscribe(data => {
           this.ngZone.run(() => {
             console.log(data)
             const statusChanged = this.sensorData.status != data.status;

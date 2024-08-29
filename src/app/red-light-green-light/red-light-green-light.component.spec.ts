@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DodgeTheObstacleComponent } from './dodge-the-obstacle.component';
+import { RedLightGreenLightComponent } from './red-light-green-light.component';
 
 describe('DodgeTheObstacleComponent', () => {
-  let component: DodgeTheObstacleComponent;
-  let fixture: ComponentFixture<DodgeTheObstacleComponent>;
+  let component: RedLightGreenLightComponent;
+  let fixture: ComponentFixture<RedLightGreenLightComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DodgeTheObstacleComponent]
+      imports: [RedLightGreenLightComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DodgeTheObstacleComponent);
+    fixture = TestBed.createComponent(RedLightGreenLightComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

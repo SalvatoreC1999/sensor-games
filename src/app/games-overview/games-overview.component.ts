@@ -21,14 +21,14 @@ export class GamesOverviewComponent {
     {
       name: "Distance Match",
       image: "distance-match.jpg",
-      description: "Gioco di stima sulla scelta casuale di una distanza",
+      description: "Gioco di stima sulla scelta casuale di una distanza, utilizzando un sensore ad ultrasuoni",
       url: UrlEnum.distanceMatch
     },
     {
-      name: "Dodge The Obstacle",
-      image: "dodge-the-obstacle.jpg",
-      description: "Gioco in cui dovrai schivare il meteorite prima dello schianto",
-      url: UrlEnum.dodgeTheObstacle
+      name: "Red Light, Green Light",
+      image: "red-light-green-light.jpeg",
+      description: "Gioco in cui dovrai fermarti quando la luce diventa rossa e correre quando è verde, utilizzando il sensore ad infrarossi",
+      url: UrlEnum.redLightGreenLight
     }
   ]
 

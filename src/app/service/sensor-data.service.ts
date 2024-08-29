@@ -17,8 +17,8 @@ export class SensorDataService {
 
   constructor(private http: HttpClient) {}
 
-  getSensorData(): Observable<any> {
-    return timer(0, 500)  // Intervallo di polling ogni 0.5 secondi
+  getSensorData(intervalDuration: number): Observable<any> {
+    return timer(0, intervalDuration)
       .pipe(
         switchMap(() => this.http.get<any>(this.apiGetUrl))
       );

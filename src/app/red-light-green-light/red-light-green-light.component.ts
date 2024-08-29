@@ -8,9 +8,11 @@ import {StatusEnum} from "../enum/status.enum";
 import { LottieComponent, AnimationOptions } from 'ngx-lottie';
 import { AnimationItem } from 'lottie-web';
 import {DodgeTheObstacleDataModel} from "../model/dodge-the-obstacle-data.model";
+import {RulesRedLightGreenLightComponent} from "../rules-red-light-green-light/rules-red-light-green-light.component";
+import {DialogService} from "primeng/dynamicdialog";
 
 @Component({
-  selector: 'app-dodge-the-obstacle',
+  selector: 'app-red-light-green-light',
   standalone: true,
   imports: [
     Button,
@@ -20,10 +22,10 @@ import {DodgeTheObstacleDataModel} from "../model/dodge-the-obstacle-data.model"
     GameOverComponent,
     LottieComponent
   ],
-  templateUrl: './dodge-the-obstacle.component.html',
-  styleUrl: './dodge-the-obstacle.component.css'
+  templateUrl: './red-light-green-light.component.html',
+  styleUrl: './red-light-green-light.component.css'
 })
-export class DodgeTheObstacleComponent implements OnInit,OnDestroy{
+export class RedLightGreenLightComponent implements OnInit,OnDestroy{
   sensorSubscription: any;
   sensorData: DodgeTheObstacleDataModel | undefined;
   private animationItem: any;
@@ -37,13 +39,14 @@ export class DodgeTheObstacleComponent implements OnInit,OnDestroy{
   constructor(
     private sensorDataService: SensorDataService,
     private ngZone: NgZone,
-    private audioService: AudioService
+    private audioService: AudioService,
+    private dialogService: DialogService
   ) {}
 
   ngOnInit() {
     this.sensorDataService.initDodgeTheObstacle().subscribe({
       next: () => {
-        this.sensorSubscription = this.sensorDataService.getSensorData().subscribe(data => {
+        this.sensorSubscription = this.sensorDataService.getSensorData(200).subscribe(data => {
           this.ngZone.run(() => {
             console.log(data);
             const statusChanged = this.sensorData && this.sensorData.status != data.status;
@@ -90,7 +93,7 @@ export class DodgeTheObstacleComponent implements OnInit,OnDestroy{
   }
 
   openDialog() {
-    // Implementa la logica per aprire il dialogo delle regole
+    this.dialogService.open(RulesRedLightGreenLightComponent,{})
   }
 
   protected readonly StatusEnum = StatusEnum;

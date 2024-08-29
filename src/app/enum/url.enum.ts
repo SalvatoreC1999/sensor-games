@@ -1,4 +1,4 @@
 export enum UrlEnum{
   distanceMatch = 'distance-match',
-  dodgeTheObstacle = 'dodge-the-obstacle',
+  redLightGreenLight = 'red-light-green-light',
 }
