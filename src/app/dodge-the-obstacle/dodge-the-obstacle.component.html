@@ -1,47 +1,43 @@
 <ng-container *ngIf="sensorData">
   <div class="flex bg-blue-200 border-1 border-blue-500 pr-4 justify-content-between">
-  <div class="flex justify-content-start">
-    <p-button link="true" (onClick)="openDialog()" label="Regole"></p-button>
-  </div>
-
-  <div class="flex justify-content-end">
-    <div class="flex-column gap-2 font-bold justify-content-center mt-2">
-      <div>
-        Score: {{ sensorData.score ?? 0 }}
-      </div>
-      <div>
-        Lives:
-        <i *ngFor="let heart of getHeartsFilled()" class="pi pi-heart-fill text-red-500" style="font-size: 14px; margin-left: 5px;"></i>
-        <i *ngFor="let heart of getHeartsNotFilled()" class="pi pi-heart text-red-500" style="font-size: 14px; margin-left: 5px;"></i>
+    <div class="flex justify-content-start">
+      <p-button link="true" (onClick)="openDialog()" label="Regole"></p-button>
+    </div>
+    <div class="flex justify-content-end">
+      <div class="flex-column gap-2 font-bold justify-content-center mt-2">
+        <div>Score: {{ sensorData.score ?? 0 }}</div>
+        <div>
+          Lives:
+          <i *ngFor="let heart of getHeartsFilled()" class="pi pi-heart-fill text-red-500" style="font-size: 14px; margin-left: 5px;"></i>
+          <i *ngFor="let heart of getHeartsNotFilled()" class="pi pi-heart text-red-500" style="font-size: 14px; margin-left: 5px;"></i>
+        </div>
       </div>
     </div>
-
   </div>
-</div>
 
-  <div *ngIf="sensorData.status != StatusEnum.GAME_OVER" class="game-container" [ngClass]="{'red-light': sensorData.status === 'RED_LIGHT'}">
+  <div *ngIf="sensorData.status != StatusEnum.GAME_OVER" class="game-container mt-4 border-1" [ngClass]="{'red-light': sensorData.status === 'RED_LIGHT'}">
+    <ng-container *ngIf="!isRunning; else runningTemplate">
+      <svg width="200" height="200" viewBox="0 0 200 200">
+        <!-- SVG del personaggio fermo -->
+        <g>
+          <circle cx="100" cy="50" r="20" fill="black" />
+          <line x1="100" y1="70" x2="100" y2="120" stroke="black" stroke-width="4" />
+          <line x1="100" y1="80" x2="80" y2="100" stroke="black" stroke-width="4" class="left-arm" />
+          <line x1="100" y1="80" x2="120" y2="100" stroke="black" stroke-width="4" class="right-arm" />
+          <line x1="100" y1="120" x2="80" y2="160" stroke="black" stroke-width="4" class="left-leg" />
+          <line x1="100" y1="120" x2="120" y2="160" stroke="black" stroke-width="4" class="right-leg" />
+        </g>
+      </svg>
+    </ng-container>
 
-    <svg width="200" height="200" viewBox="0 0 200 200">
-      <g [attr.class]="isRunning ? 'running' : ''">
-        <!-- Testa -->
-        <circle cx="100" cy="50" r="20" fill="black" />
+    <ng-template #runningTemplate>
+      <div class="lottie-container">
+      <ng-lottie [options]="options" (animationCreated)="animationCreated($event)" />
+      </div>
+    </ng-template>
+  </div>
 
-        <!-- Corpo -->
-        <line x1="100" y1="70" x2="100" y2="120" stroke="black" stroke-width="4" />
-
-        <!-- Braccia -->
-        <line x1="100" y1="80" x2="80" y2="100" stroke="black" stroke-width="4" class="left-arm" />
-        <line x1="100" y1="80" x2="120" y2="100" stroke="black" stroke-width="4" class="right-arm" />
-
-        <!-- Gambe -->
-        <line x1="100" y1="120" x2="80" y2="160" stroke="black" stroke-width="4" class="left-leg" />
-        <line x1="100" y1="120" x2="120" y2="160" stroke="black" stroke-width="4" class="right-leg" />
-      </g>
-    </svg>
-
-    <div *ngIf="sensorData.status === StatusEnum.GAME_OVER">
-      <app-game-over></app-game-over>
-    </div>
+  <div *ngIf="sensorData.status == StatusEnum.GAME_OVER">
+    <app-game-over [sensorData]="sensorData"></app-game-over>
   </div>
 </ng-container>
-
