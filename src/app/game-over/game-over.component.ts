@@ -3,7 +3,7 @@ import {DistanceMatchData} from "../model/distance-match-data.model";
 import {Button} from "primeng/button";
 import {SensorDataService} from "../service/sensor-data.service";
 import {AudioService} from "../service/audio.service";
-import {DodgeTheObstacleDataModel} from "../model/dodge-the-obstacle-data.model";
+import {RedLightGreenLightDataModel} from "../model/red-light-green-light-data.model";
 
 @Component({
   selector: 'app-game-over',
@@ -15,7 +15,7 @@ import {DodgeTheObstacleDataModel} from "../model/dodge-the-obstacle-data.model"
   styleUrl: './game-over.component.css'
 })
 export class GameOverComponent {
-  @Input() sensorData !: DistanceMatchData | DodgeTheObstacleDataModel;
+  @Input() sensorData !: DistanceMatchData | RedLightGreenLightDataModel;
 
   constructor(private sensorDataService: SensorDataService,private audioService: AudioService) {
     this.audioService.playGameOver();

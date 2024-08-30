@@ -5,11 +5,12 @@ import {Button} from "primeng/button";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {GameOverComponent} from "../game-over/game-over.component";
 import {StatusEnum} from "../enum/status.enum";
-import { LottieComponent, AnimationOptions } from 'ngx-lottie';
-import { AnimationItem } from 'lottie-web';
-import {DodgeTheObstacleDataModel} from "../model/dodge-the-obstacle-data.model";
+import {AnimationOptions, LottieComponent} from 'ngx-lottie';
+import {AnimationItem} from 'lottie-web';
+import {RedLightGreenLightDataModel} from "../model/red-light-green-light-data.model";
 import {RulesRedLightGreenLightComponent} from "../rules-red-light-green-light/rules-red-light-green-light.component";
 import {DialogService} from "primeng/dynamicdialog";
+import {MessagesModule} from "primeng/messages";
 
 @Component({
   selector: 'app-red-light-green-light',
@@ -20,15 +21,17 @@ import {DialogService} from "primeng/dynamicdialog";
     NgClass,
     NgIf,
     GameOverComponent,
-    LottieComponent
+    LottieComponent,
+    MessagesModule
   ],
   templateUrl: './red-light-green-light.component.html',
   styleUrl: './red-light-green-light.component.css'
 })
 export class RedLightGreenLightComponent implements OnInit,OnDestroy{
   sensorSubscription: any;
-  sensorData: DodgeTheObstacleDataModel | undefined;
+  sensorData: RedLightGreenLightDataModel | undefined;
   private animationItem: any;
+  messages: any;
   options: AnimationOptions = {
     path: 'assets/doraemon-running.json'
   }
@@ -55,6 +58,7 @@ export class RedLightGreenLightComponent implements OnInit,OnDestroy{
               switch(this.sensorData.status) {
                 case StatusEnum.HIT:
                   this.audioService.playError();
+                  this.shakeAnimation();
                   break;
                 case StatusEnum.GAME_OVER:
                   this.audioService.playGameOver();
@@ -69,7 +73,10 @@ export class RedLightGreenLightComponent implements OnInit,OnDestroy{
               }
             }
           });
-        });
+        },
+          () => {
+            this.messages = [{ severity: 'error', summary: 'Errore', detail: 'Verifica che il sensore sia collegato'}]
+          });
       }
     });
   }
@@ -82,6 +89,37 @@ export class RedLightGreenLightComponent implements OnInit,OnDestroy{
 
   animationCreated(animationItem: AnimationItem): void {
     this.animationItem = animationItem;
+  }
+
+  shakeAnimation(): void {
+    if (this.animationItem) {
+      const originalTransform = this.animationItem.wrapper.style.transform;
+      const shakeAmplitude = 15; // Aumentato da 5 a 15
+      const shakeDuration = 1000; // Durata totale in millisecondi (aumentata da 500ms a 1000ms)
+      const frameRate = 60; // Frame al secondo
+      const totalFrames = (shakeDuration / 1000) * frameRate;
+
+      let frame = 0;
+
+      const shake = () => {
+        if (frame < totalFrames) {
+          const progress = frame / totalFrames;
+          const decreaseFactor = 1 - progress; // Fattore di diminuzione dell'ampiezza
+
+          const xPos = (Math.random() * 2 - 1) * shakeAmplitude * decreaseFactor;
+          const yPos = (Math.random() * 2 - 1) * shakeAmplitude * decreaseFactor;
+
+          this.animationItem!.wrapper.style.transform = `${originalTransform} translate(${xPos}px, ${yPos}px)`;
+
+          frame++;
+          requestAnimationFrame(shake);
+        } else {
+          this.animationItem!.wrapper.style.transform = originalTransform; // Resetta la posizione
+        }
+      };
+
+      requestAnimationFrame(shake);
+    }
   }
 
   getHeartsFilled(): number[] {
