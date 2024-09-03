@@ -7,6 +7,8 @@ import { switchMap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class SensorDataService {
+  private apiInitDistanceMatchUrl = 'http://localhost:3000/init-distance-match';
+  private apiInitDodgeTheObstacleUrl = 'http://localhost:3000/init-dodge-the-obstacle';
 
   private apiGetUrl = 'http://localhost:3000/sensor-data';
   private apiPostUrl = 'http://localhost:3000/start-measurement';
@@ -15,8 +17,8 @@ export class SensorDataService {
 
   constructor(private http: HttpClient) {}
 
-  getSensorData(): Observable<any> {
-    return timer(0, 500)  // Intervallo di polling ogni 0.5 secondi
+  getSensorData(intervalDuration: number): Observable<any> {
+    return timer(0, intervalDuration)
       .pipe(
         switchMap(() => this.http.get<any>(this.apiGetUrl))
       );
@@ -31,5 +33,13 @@ export class SensorDataService {
 
   startAgain(): Observable<any> {
     return this.http.post(this.apiStartAgainUrl,{});
+  }
+
+  initDistanceMatch(): Observable<any> {
+    return this.http.post(this.apiInitDistanceMatchUrl,{});
+  }
+
+  initDodgeTheObstacle(): Observable<any> {
+    return this.http.post(this.apiInitDodgeTheObstacleUrl,{});
   }
 }

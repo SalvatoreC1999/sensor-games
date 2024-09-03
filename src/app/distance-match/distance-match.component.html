@@ -21,7 +21,7 @@
   </div>
   </div>
   <div class="mt-3" [ngSwitch]="sensorData.status">
-    <ng-container *ngSwitchCase="StatusEnum.NEW_ROUND">
+    <ng-container *ngSwitchDefault>
       <app-new-round [sensorData]="sensorData"></app-new-round>
     </ng-container>
     <ng-container *ngSwitchCase="StatusEnum.MEASURING">

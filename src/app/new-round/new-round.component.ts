@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Data} from "../model/data.model";
+import {DistanceMatchData} from "../model/distance-match-data.model";
 import {Button} from "primeng/button";
 import {SensorDataService} from "../service/sensor-data.service";
 
@@ -13,7 +13,7 @@ import {SensorDataService} from "../service/sensor-data.service";
   styleUrl: './new-round.component.css'
 })
 export class NewRoundComponent {
-  @Input() sensorData!: Data;
+  @Input() sensorData!: DistanceMatchData;
 
   constructor(private sensorDataService: SensorDataService) {
   }

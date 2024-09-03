@@ -1,0 +1,30 @@
+.game-container {
+  text-align: center;
+  background-color: #4CAF50; /* Green background for "Green Light" */
+  transition: background-color 0.5s;
+}
+
+.red-light {
+  background-color: #F44336; /* Red background for "Red Light" */
+}
+
+.lottie-container {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center
+}
+
+.lottie-item {
+  width: 600px;
+  height: 600px;
+}
+
+.lottie-squid {
+  width: 400px;
+  height: 400px;
+  justify-content:flex-end;
+}
+
+

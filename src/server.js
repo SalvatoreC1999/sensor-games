@@ -27,6 +27,7 @@ let sensorData = {
 
 // Leggi i dati dalla porta seriale
 parser.on('data', (data) => {
+  console.log('Raw data received:', data);
   try {
     const parsedData = JSON.parse(data);
     sensorData = {
@@ -35,7 +36,7 @@ parser.on('data', (data) => {
     };
     console.log('Received data:', sensorData);
   } catch (e) {
-    console.error('Errore nel parsing dei dati:', e);
+    console.error('Errore nel parsing dei dati:', e, sensorData);
   }
 });
 
@@ -45,8 +46,7 @@ app.get('/sensor-data', (req, res) => {
 });
 
 app.post('/start-measurement', (req, res) => {
-  console.log('qui')
-  serialPort.write('START\n', (err) => {
+  serialPort.write('START', (err) => {
     if (err) {
       console.error('Errore nell\'invio del comando START:', err);
       res.status(500).json({ error: 'Errore nell\'invio del comando START' });
@@ -57,8 +57,32 @@ app.post('/start-measurement', (req, res) => {
   });
 });
 
+app.post('/init-distance-match', (req, res) => {
+  serialPort.write('DM', (err) => {
+    if (err) {
+      console.error('Errore nell\'invio del comando DM:', err);
+      res.status(500).json({ error: 'Errore nell\'invio del comando DM' });
+    } else {
+      console.log('Comando DM inviato');
+      res.json({ message: 'Comando DM inviato con successo' });
+    }
+  });
+});
+
+app.post('/init-dodge-the-obstacle', (req, res) => {
+  serialPort.write('DO', (err) => {
+    if (err) {
+      console.error('Errore nell\'invio del comando DO:', err);
+      res.status(500).json({ error: 'Errore nell\'invio del comando DO' });
+    } else {
+      console.log('Comando DO inviato');
+      res.json({ message: 'Comando DO inviato con successo' });
+    }
+  });
+});
+
 app.post('/stop-measurement', (req, res) => {
-  serialPort.write('STOP\n', (err) => {
+  serialPort.write('STOP', (err) => {
     if (err) {
       console.error('Errore nell\'invio del comando STOP:', err);
       res.status(500).json({ error: 'Errore nell\'invio del comando STOP' });
@@ -70,7 +94,7 @@ app.post('/stop-measurement', (req, res) => {
 });
 
 app.post('/start-again', (req, res) => {
-  serialPort.write('RESTART\n', (err) => {
+  serialPort.write('RESTART', (err) => {
     if (err) {
       console.error('Errore nell\'invio del comando START AGAIN:', err);
       res.status(500).json({ error: 'Errore nell\'invio del comando START AGAIN' });

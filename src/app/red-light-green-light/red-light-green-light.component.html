@@ -1,0 +1,34 @@
+<ng-container *ngIf="sensorData">
+  <p-messages *ngIf="messages" [(value)]="messages" [enableService]="false"  [closable]="true"></p-messages>
+  <div class="flex bg-blue-200 border-1 border-blue-500 pr-4 justify-content-between">
+    <div class="flex justify-content-start">
+      <p-button link="true" (onClick)="openDialog()" label="Regole"></p-button>
+    </div>
+    <div class="flex justify-content-end">
+      <div class="flex-column gap-2 font-bold justify-content-center mt-2">
+        <div>Score: {{ sensorData.score ?? 0 }}</div>
+        <div>
+          Lives:
+          <i *ngFor="let heart of getHeartsFilled()" class="pi pi-heart-fill text-red-500" style="font-size: 14px; margin-left: 5px;"></i>
+          <i *ngFor="let heart of getHeartsNotFilled()" class="pi pi-heart text-red-500" style="font-size: 14px; margin-left: 5px;"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="sensorData.status != StatusEnum.GAME_OVER" class="game-container mt-4 border-1" [ngClass]="{'red-light': sensorData.status == StatusEnum.RED_LIGHT}">
+    <div class="lottie-container">
+      <div class="lottie-item">
+        <ng-lottie [options]="options" (animationCreated)="animationCreated($event)" />
+      </div>
+      <div class="lottie-item lottie-squid" *ngIf="sensorData.status == StatusEnum.RED_LIGHT">
+        <ng-lottie [options]="optionsSquid" />
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="sensorData.status == StatusEnum.GAME_OVER">
+    <app-game-over [sensorData]="sensorData"></app-game-over>
+  </div>
+</ng-container>

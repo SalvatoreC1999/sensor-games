@@ -4,4 +4,6 @@ export enum StatusEnum{
   ERROR = 'ERROR',
   SUCCESS = 'SUCCESS',
   GAME_OVER = 'GAME_OVER',
+  HIT = 'HIT',
+  RED_LIGHT = 'RED_LIGHT',
 }
